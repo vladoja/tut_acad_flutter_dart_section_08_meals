@@ -48,14 +48,16 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  void _setScreen(String identifier) {
+  void _setScreen(String identifier) async {
     if (identifier == 'filters') {
       // First POP is to close drawer.
       Navigator.of(context).pop();
-      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
+      final result = await Navigator.of(context)
+          .push<Map<Filter, bool>>(MaterialPageRoute(builder: (ctx) {
         return const FiltersScreen();
       }));
+      print('RESULT: ${result}');
     } else {
       // Closing DRAWER. Going back to Meals.
       Navigator.of(context).pop();
