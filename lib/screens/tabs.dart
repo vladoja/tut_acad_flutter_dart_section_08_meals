@@ -50,6 +50,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   void _setScreen(String identifier) {
     if (identifier == 'filters') {
+      // First POP is to close drawer.
+      Navigator.of(context).pop();
       Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
         return FiltersScreen();
       }));
