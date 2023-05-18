@@ -15,14 +15,18 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
-  List<Meal> _favoritesMels = [];
+  final List<Meal> _favoritesMels = [];
 
   void _toggleMealFavoritesStatus(Meal meal) {
     final isExisting = _favoritesMels.contains(meal);
     if (isExisting) {
-      _favoritesMels.remove(meal);
+      setState(() {
+        _favoritesMels.remove(meal);
+      });
     } else {
-      _favoritesMels.add(meal);
+      setState(() {
+        _favoritesMels.add(meal);
+      });
     }
   }
 
@@ -40,7 +44,7 @@ class _TabsScreenState extends State<TabsScreen> {
     var activePageTitle = 'Categories';
     if (_selectedPageIndex == 1) {
       activePage = MealsScreen(
-        meals: [],
+        meals: _favoritesMels,
         onToggleFavorite: _toggleMealFavoritesStatus,
       );
       activePageTitle = 'Your Favorites';
