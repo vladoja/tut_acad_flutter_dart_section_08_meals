@@ -82,8 +82,25 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final availableMeals = dummyMeals.where((element) {
+      if (_selectedFitlers[Filter.glutenFree]! && !element.isGlutenFree) {
+        return false;
+      }
+      if (_selectedFitlers[Filter.lactosFree]! && !element.isLactoseFree) {
+        return false;
+      }
+      if (_selectedFitlers[Filter.vegan]! && !element.isVegan) {
+        return false;
+      }
+      if (_selectedFitlers[Filter.vegaterian]! && !element.isVegetarian) {
+        return false;
+      }
+      return true;
+    }).toList();
+
     Widget activePage = CategoriesScreen(
       onToggleFavorite: _toggleMealFavoritesStatus,
+      availableMeals: availableMeals,
     );
     var activePageTitle = 'Categories';
     if (_selectedPageIndex == 1) {
